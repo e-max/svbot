@@ -26,7 +26,7 @@ func main() {
 		}
 		fmt.Printf("body = %+v\n", string(body))
 		event := map[string]interface{}{}
-		err = json.Unmarshal(body, event)
+		err = json.Unmarshal(body, &event)
 		if err != nil {
 			log.Print(err)
 		}
