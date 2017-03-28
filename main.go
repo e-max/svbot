@@ -46,9 +46,10 @@ func HandlePullRequest(payload interface{}, header webhooks.Header) {
 	fmt.Println("Handling Pull Request")
 
 	pl := payload.(ghub.PullRequestPayload)
+	spew.Dump(pl)
 
 	// Do whatever you want from here...
-	fmt.Printf("%+v", pl)
+	//fmt.Printf("%+v", pl)
 }
 
 // HandlePullRequest handles GitHub pull_request events
@@ -58,9 +59,10 @@ func HandleAll(payload interface{}, header webhooks.Header) {
 	fmt.Printf("payload = %+v\n", payload)
 
 	pl := payload.(ghub.PullRequestPayload)
+	spew.Dump(pl)
 
 	// Do whatever you want from here...
-	fmt.Printf("%+v", pl)
+	//fmt.Printf("%+v", pl)
 }
 
 // HandlePullRequest handles GitHub pull_request events
@@ -69,9 +71,10 @@ func HandlePullRequestComments(payload interface{}, header webhooks.Header) {
 	fmt.Println("Handling Pull Request Comment")
 
 	pl := payload.(ghub.PullRequestReviewCommentPayload)
+	spew.Dump(pl)
 
 	// Do whatever you want from here...
-	fmt.Printf("%+v", pl)
+	//fmt.Printf("%+v", pl)
 }
 
 // HandlePullRequest handles GitHub pull_request events
@@ -97,9 +100,10 @@ func HandleCommitComment(payload interface{}, header webhooks.Header) {
 	fmt.Println("Handling Commit Comment ")
 
 	pl := payload.(ghub.PushPayload)
+	spew.Dump(pl)
 
 	// Do whatever you want from here...
-	fmt.Printf("%+v", pl)
+	//fmt.Printf("%+v", pl)
 }
 
 func Ver1() {
