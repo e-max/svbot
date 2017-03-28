@@ -30,6 +30,7 @@ func WH() {
 	//hook.RegisterEvents(HandlePush, ghub.PushEvent)
 	//hook.RegisterEvents(HandlePullRequestComments, ghub.PullRequestReviewCommentEvent)
 	//hook.RegisterEvents(HandlePush, ghub.CommitCommentEvent)
+	//
 	hook.RegisterEvents(HandleAll, ghub.CommitCommentEvent, ghub.CreateEvent, ghub.PullRequestEvent, ghub.PullRequestReviewCommentEvent, ghub.PushEvent, ghub.IssueCommentEvent)
 
 	err := webhooks.Run(hook, ":"+strconv.Itoa(8080), "/")
