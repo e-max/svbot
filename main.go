@@ -26,8 +26,11 @@ func main() {
 
 func WH() {
 	hook := ghub.New(&ghub.Config{Secret: SECRET})
-	hook.RegisterEvents(HandlePullRequest, ghub.PullRequestEvent)
-	hook.RegisterEvents(HandlePush, ghub.PushEvent)
+	//hook.RegisterEvents(HandlePullRequest, ghub.PullRequestEvent)
+	//hook.RegisterEvents(HandlePush, ghub.PushEvent)
+	//hook.RegisterEvents(HandlePullRequestComments, ghub.PullRequestReviewCommentEvent)
+	//hook.RegisterEvents(HandlePush, ghub.CommitCommentEvent)
+	hook.RegisterEvents(HandleAll, ghub.CommitCommentEvent, ghub.CreateEvent, ghub.PullRequestEvent, ghub.PullRequestReviewCommentEvent, ghub.PushEvent, ghub.IssueCommentEvent)
 
 	err := webhooks.Run(hook, ":"+strconv.Itoa(8080), "/")
 	if err != nil {
@@ -41,6 +44,29 @@ func HandlePullRequest(payload interface{}, header webhooks.Header) {
 	fmt.Println("Handling Pull Request")
 
 	pl := payload.(ghub.PullRequestPayload)
+
+	// Do whatever you want from here...
+	fmt.Printf("%+v", pl)
+}
+
+// HandlePullRequest handles GitHub pull_request events
+func HandleAll(payload interface{}, header webhooks.Header) {
+
+	fmt.Println("Handling all")
+	fmt.Printf("payload = %+v\n", payload)
+
+	pl := payload.(ghub.PullRequestPayload)
+
+	// Do whatever you want from here...
+	fmt.Printf("%+v", pl)
+}
+
+// HandlePullRequest handles GitHub pull_request events
+func HandlePullRequestComments(payload interface{}, header webhooks.Header) {
+
+	fmt.Println("Handling Pull Request Comment")
+
+	pl := payload.(ghub.PullRequestReviewCommentPayload)
 
 	// Do whatever you want from here...
 	fmt.Printf("%+v", pl)
