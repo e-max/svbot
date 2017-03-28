@@ -26,12 +26,12 @@ func main() {
 
 func WH() {
 	hook := ghub.New(&ghub.Config{Secret: ""})
-	//hook.RegisterEvents(HandlePullRequest, ghub.PullRequestEvent)
-	//hook.RegisterEvents(HandlePush, ghub.PushEvent)
-	//hook.RegisterEvents(HandlePullRequestComments, ghub.PullRequestReviewCommentEvent)
-	//hook.RegisterEvents(HandlePush, ghub.CommitCommentEvent)
+	hook.RegisterEvents(HandlePullRequest, ghub.PullRequestEvent)
+	hook.RegisterEvents(HandlePush, ghub.PushEvent)
+	hook.RegisterEvents(HandlePullRequestComments, ghub.PullRequestReviewCommentEvent)
+	hook.RegisterEvents(HandlePush, ghub.CommitCommentEvent)
 	//
-	hook.RegisterEvents(HandleAll, ghub.CommitCommentEvent, ghub.CreateEvent, ghub.PullRequestEvent, ghub.PullRequestReviewCommentEvent, ghub.PushEvent, ghub.IssueCommentEvent)
+	//hook.RegisterEvents(HandleAll, ghub.CommitCommentEvent, ghub.CreateEvent, ghub.PullRequestEvent, ghub.PullRequestReviewCommentEvent, ghub.PushEvent, ghub.IssueCommentEvent)
 
 	err := webhooks.Run(hook, ":"+strconv.Itoa(8080), "/")
 	if err != nil {
