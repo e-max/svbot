@@ -25,7 +25,7 @@ func main() {
 }
 
 func WH() {
-	hook := ghub.New(&ghub.Config{Secret: SECRET})
+	hook := ghub.New(&ghub.Config{Secret: ""})
 	//hook.RegisterEvents(HandlePullRequest, ghub.PullRequestEvent)
 	//hook.RegisterEvents(HandlePush, ghub.PushEvent)
 	//hook.RegisterEvents(HandlePullRequestComments, ghub.PullRequestReviewCommentEvent)
