@@ -81,6 +81,11 @@ func HandlePush(payload interface{}, header webhooks.Header) {
 
 	pl := payload.(ghub.PushPayload)
 
+	fmt.Printf("\x1B[32;1m pl.After\x1B[0m = %+v\n", pl.After)
+	fmt.Printf("\x1B[32;1m pl.Before\x1B[0m = %+v\n", pl.Before)
+	fmt.Printf("\x1B[32;1m pl.HeadCommit\x1B[0m = %+v\n", pl.HeadCommit)
+	fmt.Printf("\x1B[32;1m pl.Ref\x1B[0m = %+v\n", pl.Ref)
+
 	// Do whatever you want from here...
 	spew.Print(pl)
 	//fmt.Printf("%+v", pl)
