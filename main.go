@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/davecgh/go-spew/spew"
 	"gopkg.in/go-playground/webhooks.v2"
 	ghub "gopkg.in/go-playground/webhooks.v2/github"
 )
@@ -29,7 +30,7 @@ func WH() {
 	hook.RegisterEvents(HandlePullRequest, ghub.PullRequestEvent)
 	hook.RegisterEvents(HandlePush, ghub.PushEvent)
 	hook.RegisterEvents(HandlePullRequestComments, ghub.PullRequestReviewCommentEvent)
-	hook.RegisterEvents(HandlePush, ghub.CommitCommentEvent)
+	hook.RegisterEvents(HandleCommitComment, ghub.CommitCommentEvent)
 	//
 	//hook.RegisterEvents(HandleAll, ghub.CommitCommentEvent, ghub.CreateEvent, ghub.PullRequestEvent, ghub.PullRequestReviewCommentEvent, ghub.PushEvent, ghub.IssueCommentEvent)
 
@@ -77,6 +78,18 @@ func HandlePullRequestComments(payload interface{}, header webhooks.Header) {
 func HandlePush(payload interface{}, header webhooks.Header) {
 
 	fmt.Println("Handling Push ")
+
+	pl := payload.(ghub.PushPayload)
+
+	// Do whatever you want from here...
+	spew.Print(pl)
+	//fmt.Printf("%+v", pl)
+}
+
+// HandlePullRequest handles GitHub pull_request events
+func HandleCommitComment(payload interface{}, header webhooks.Header) {
+
+	fmt.Println("Handling Commit Comment ")
 
 	pl := payload.(ghub.PushPayload)
 
