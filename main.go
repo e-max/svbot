@@ -87,7 +87,7 @@ func HandlePush(payload interface{}, header webhooks.Header) {
 	fmt.Printf("\x1B[32;1m pl.Ref\x1B[0m = %+v\n", pl.Ref)
 
 	// Do whatever you want from here...
-	spew.Print(pl)
+	spew.Dump(pl)
 	//fmt.Printf("%+v", pl)
 }
 
