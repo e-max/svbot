@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"html"
@@ -9,7 +10,10 @@ import (
 	"net/http"
 	"strconv"
 
+	"golang.org/x/oauth2"
+
 	"github.com/davecgh/go-spew/spew"
+	"github.com/google/go-github/github"
 	"gopkg.in/go-playground/webhooks.v2"
 	ghub "gopkg.in/go-playground/webhooks.v2/github"
 )
@@ -17,11 +21,12 @@ import (
 const SECRET = "mutHupGhemopholOwdoocHuckmidBor4"
 
 const BotToken = "760c6348f92cd0885737cf2e4a78dd0582915941"
-const EmaxToken = "c08ab4c23359d4aa512bac979de246d7217bbf31"
+const EmaxToken = "7498c089cc41b1f4b8a56293cf1888451207e283"
 
 func main() {
 	fmt.Println("vim-go")
-	WH()
+	//	WH()
+	tag()
 
 }
 
@@ -47,6 +52,11 @@ func HandlePullRequest(payload interface{}, header webhooks.Header) {
 
 	pl := payload.(ghub.PullRequestPayload)
 	spew.Dump(pl)
+	//pl.Action
+	//pl.PullRequest.State
+	//pl.PullRequest.User.Login
+	//pl.PullRequest.MergeCommitSHA
+	//pl.PullRequest.Head
 
 	// Do whatever you want from here...
 	//fmt.Printf("%+v", pl)
@@ -132,15 +142,34 @@ func Ver1() {
 }
 
 func tag() {
-	//ctx := context.Background()
-	//ts := oauth2.StaticTokenSource(
-	//&oauth2.Token{AccessToken: EmaxToken},
-	//)
-	//tc := oauth2.NewClient(ctx, ts)
+	ctx := context.Background()
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: EmaxToken},
+	)
+	tc := oauth2.NewClient(ctx, ts)
 
-	//client := github.NewClient(tc)
-	//client.Repositories.ListTags()
+	client := github.NewClient(tc)
+	op := &github.ListOptions{}
+	fmt.Println("start")
+	tags, _, err := client.Repositories.ListTags(ctx, "e-max", "svbot", op)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("tags = %+v\n", tags)
+	for _, t := range tags {
+		fmt.Printf("t.GetName() = %+v\n", t.GetName())
+	}
 
-	// list all repositories for the authenticated user
-	//repos, _, err := client.Repositories.List(ctx, "", nil)
+	fmt.Println("releases")
+	rels, _, err := client.Repositories.ListReleases(ctx, "e-max", "svbot", op)
+	for _, r := range rels {
+		fmt.Printf("r.GetName() = %+v\n", r)
+	}
+
+	//branch, resp, err := client.Repositories.GetBranch("e-max", "svbot", "master")
+	//if err != nil {
+	//log.Fatal(err)
+	//}
+	//branch.GetName()
+
 }
